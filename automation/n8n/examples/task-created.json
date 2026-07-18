@@ -1,0 +1,14 @@
+{
+  "eventId": "4ebf5b23-0f88-4f73-959a-bf948aee64cb",
+  "eventType": "task.created",
+  "taskId": "task-001",
+  "occurredAt": "2026-07-18T18:00:00+08:00",
+  "task": {
+    "title": "練習英文閱讀",
+    "description": "閱讀技術文章並整理五個單字",
+    "scheduledStart": "2026-07-20T19:30:00+08:00",
+    "scheduledEnd": "2026-07-20T20:00:00+08:00",
+    "completed": false
+  }
+}
+

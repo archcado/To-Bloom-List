@@ -1,0 +1,172 @@
+.task-garden-section {
+  display: grid;
+  gap: 14px;
+}
+
+.task-garden-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.task-garden-header h3 {
+  margin: 0 0 6px;
+}
+
+.task-garden-header p {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.section-eyebrow {
+  margin: 0 0 6px;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+
+.garden-summary {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-soft);
+  padding: 10px 12px;
+  text-align: center;
+  min-width: 100px;
+}
+
+.garden-summary span {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.garden-summary strong {
+  font-size: 1.2rem;
+}
+
+.garden-viewport {
+  overflow-x: auto;
+  overflow-y: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 22% 24%, rgba(255, 255, 255, 0.72), transparent 34%),
+    linear-gradient(to bottom, #fffdf8 0%, #f8f0df 100%);
+  padding: 18px 18px 10px;
+}
+
+.task-garden {
+  display: flex;
+  gap: 8px;
+  min-height: 280px;
+  align-items: end;
+}
+
+.task-garden-empty {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.task-summary-status {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.task-plant {
+  width: 184px;
+  min-width: 184px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  display: grid;
+  align-content: end;
+  gap: 8px;
+  padding: 8px;
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.task-plant:hover,
+.task-plant:focus-visible {
+  background: rgba(255, 253, 248, 0.72);
+  transform: translateY(-2px);
+}
+
+.task-plant-visual {
+  border-radius: 14px;
+  background: transparent;
+  display: grid;
+  place-items: end center;
+  min-height: 188px;
+}
+
+.task-plant-image {
+  width: 172px;
+  height: 188px;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+.task-plant-title {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.task-plant-status {
+  display: inline-flex;
+  justify-content: center;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-soft);
+  padding: 4px 8px;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+
+.task-plant[data-stage="bud"] .task-plant-image,
+.task-plant[data-stage="opening"] .task-plant-image,
+.task-plant[data-stage="bloom"] .task-plant-image {
+  animation: plant-stage-arrive 360ms ease-out;
+}
+
+.task-plant[data-stage="bloom"] .task-plant-status {
+  color: var(--color-primary-green-strong);
+  border-color: #b7caa9;
+}
+
+.task-plant-image-error .task-plant-image {
+  visibility: hidden;
+}
+
+@keyframes plant-stage-arrive {
+  from {
+    opacity: 0.35;
+    transform: translateY(6px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 991.98px) {
+  .task-garden-header {
+    flex-direction: column;
+  }
+
+  .garden-summary {
+    width: fit-content;
+  }
+
+  .task-plant {
+    width: 162px;
+    min-width: 162px;
+  }
+
+  .task-plant-image {
+    width: 150px;
+  }
+}

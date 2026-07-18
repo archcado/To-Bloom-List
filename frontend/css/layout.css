@@ -1,0 +1,35 @@
+.app-content {
+  min-height: 100vh;
+  padding-top: var(--header-height);
+}
+
+.app-main {
+  padding: 24px;
+}
+
+#appFooter {
+  padding: 0 24px 24px;
+}
+
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(47, 58, 51, 0.38);
+  z-index: 900;
+}
+
+@media (min-width: 992px) {
+  .app-content {
+    margin-left: var(--sidebar-width);
+  }
+}
+
+@media (max-width: 991.98px) {
+  .app-main {
+    padding: 16px;
+  }
+
+  #appFooter {
+    padding: 0 16px 16px;
+  }
+}

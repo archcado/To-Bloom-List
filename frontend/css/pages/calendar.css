@@ -1,0 +1,27 @@
+.calendar-page {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.calendar-page__title {
+  margin: 0 0 8px;
+}
+
+.calendar-page__desc {
+  margin: 0 0 18px;
+  color: var(--color-text-muted);
+}
+
+.calendar-shell {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-card);
+  box-shadow: var(--shadow-soft);
+  padding: 20px;
+  min-height: 320px;
+}
+
+.calendar-empty {
+  margin: 0;
+  color: var(--color-text-muted);
+}

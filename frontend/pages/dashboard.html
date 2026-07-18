@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To Bloom List | 今日總覽</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/base/variables.css" />
+  <link rel="stylesheet" href="../css/base/base.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components/header.css" />
+  <link rel="stylesheet" href="../css/components/sidebar.css" />
+  <link rel="stylesheet" href="../css/components/footer.css" />
+  <link rel="stylesheet" href="../css/components/task-garden.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/pages/dashboard.css" />
+</head>
+<body class="app-body" data-page="dashboard">
+  <div id="appHeader"></div>
+  <div id="appSidebar"></div>
+  <div id="sidebarOverlay" class="sidebar-overlay" hidden></div>
+
+  <div class="app-content">
+    <main class="app-main">
+      <div class="dashboard-page">
+        <section class="dashboard-intro" aria-labelledby="dashboardPageHeading">
+          <h2 id="dashboardPageHeading">今日總覽</h2>
+          <p>一項任務對應一株植物，完成越多，花圃就越盛開。</p>
+        </section>
+
+        <section class="dashboard-summary-grid" aria-label="今日任務摘要">
+          <article class="summary-card">
+            <p>今日任務</p>
+            <strong id="taskTotalCount">0</strong>
+          </article>
+          <article class="summary-card">
+            <p>已完成</p>
+            <strong id="taskCompletedCount">0</strong>
+          </article>
+          <article class="summary-card">
+            <p>今日盛開</p>
+            <strong id="bloomSummaryCount">0</strong>
+          </article>
+        </section>
+
+        <div class="dashboard-grid">
+          <section class="task-panel card p-4" aria-labelledby="taskPanelTitle">
+            <h3 id="taskPanelTitle">今日任務</h3>
+            <p class="task-desc">建議維持四項任務，逐步完成並灌溉你的花園。</p>
+
+            <div class="task-input-group">
+              <label for="taskInput" class="visually-hidden">新增任務內容</label>
+              <input id="taskInput" type="text" class="task-input" placeholder="為今天新增任務..." />
+              <button id="addBtn" class="task-add-btn" type="button">新增</button>
+            </div>
+
+            <p id="taskLimitMessage" class="task-limit" aria-live="polite">建議任務數：0 / 4</p>
+            <ul id="taskList" class="task-list" aria-label="任務清單"></ul>
+          </section>
+
+          <section class="task-garden-section card p-4" aria-labelledby="taskGardenTitle">
+            <header class="task-garden-header">
+              <div>
+                <p class="section-eyebrow">TODAY'S GARDEN</p>
+                <h3 id="taskGardenTitle">今日花圃</h3>
+                <p>每完成一項任務，就讓花園多一朵盛開的花。</p>
+              </div>
+
+              <div class="garden-summary" aria-live="polite">
+                <span>今日盛開</span>
+                <strong id="bloomCount">0</strong>
+              </div>
+            </header>
+
+            <div class="garden-viewport" tabindex="0" aria-label="可橫向捲動的任務花圃">
+              <div id="taskGarden" class="task-garden" aria-live="polite"></div>
+            </div>
+            <p id="taskGardenEmpty" class="task-garden-empty">今天的花圃還是空的，新增第一項任務開始栽種。</p>
+            <p id="taskSummaryStatus" class="task-summary-status" aria-live="polite"></p>
+          </section>
+        </div>
+      </div>
+      <p id="taskCompletionAnnouncer" class="visually-hidden" aria-live="polite"></p>
+    </main>
+    <div id="appFooter"></div>
+  </div>
+
+  <script type="module" src="../js/app.js"></script>
+  <script type="module" src="../js/pages/dashboard.js"></script>
+</body>
+</html>

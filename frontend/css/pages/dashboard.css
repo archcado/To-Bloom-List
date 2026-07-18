@@ -1,0 +1,21 @@
+.dashboard-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-intro {
+  margin-bottom: 18px;
+}
+
+.dashboard-intro h2 {
+  margin: 0 0 6px;
+}
+
+.dashboard-intro p {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.dashboard-summary-grid .summary-card:nth-child(3) {
+  background: linear-gradient(145deg, #fffdf8, #fff8df);
+}

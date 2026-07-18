@@ -1,0 +1,14 @@
+{
+  "name": "to-bloom-list",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "description": "A task garden prototype with clear frontend, backend, and database boundaries.",
+  "scripts": {
+    "dev:frontend": "node scripts/serve-frontend.js",
+    "test:frontend": "node scripts/check-frontend-links.js",
+    "dev:backend": "npm --prefix backend run dev",
+    "start:backend": "npm --prefix backend start",
+    "test:backend": "npm --prefix backend test"
+  }
+}

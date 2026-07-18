@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://to-bloom-list.local/schemas/task-automation-event.schema.json",
+  "title": "Task automation event",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["eventId", "eventType", "taskId", "occurredAt", "task"],
+  "properties": {
+    "eventId": { "type": "string", "format": "uuid" },
+    "eventType": {
+      "type": "string",
+      "enum": ["task.created", "task.updated", "task.completed", "task.deleted"]
+    },
+    "taskId": { "type": "string" },
+    "occurredAt": { "type": "string", "format": "date-time" },
+    "task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "description": { "type": ["string", "null"] },
+        "scheduledStart": { "type": ["string", "null"], "format": "date-time" },
+        "scheduledEnd": { "type": ["string", "null"], "format": "date-time" },
+        "completed": { "type": "boolean" }
+      }
+    }
+  }
+}
+

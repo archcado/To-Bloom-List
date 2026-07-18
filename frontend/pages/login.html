@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To Bloom List | 登入</title>
+  <link rel="stylesheet" href="../css/base/variables.css" />
+  <link rel="stylesheet" href="../css/base/base.css" />
+  <link rel="stylesheet" href="../css/pages/login.css" />
+</head>
+<body>
+  <main class="login-page">
+    <section class="login-card" aria-labelledby="loginTitle">
+      <div class="login-daisy login-daisy--left" aria-hidden="true"></div>
+      <div class="login-daisy login-daisy--right" aria-hidden="true"></div>
+      <p class="login-brand">To Bloom List</p>
+      <h1 id="loginTitle" class="login-title">暖色花園入口</h1>
+      <p class="login-desc">使用暖米色與橄欖綠風格重整登入視覺，保留展示模式入口。</p>
+
+      <form id="loginForm" novalidate>
+        <div class="login-field">
+          <label for="account">帳號</label>
+          <input id="account" name="account" type="text" autocomplete="username" required />
+        </div>
+        <div class="login-field">
+          <label for="password">密碼</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" required />
+        </div>
+        <div class="login-actions">
+          <button type="submit" class="login-submit">登入</button>
+          <a href="./dashboard.html" class="login-demo-link">進入展示模式</a>
+        </div>
+      </form>
+
+      <p class="login-note">提示：目前為展示模式，登入表單僅做前端欄位檢查，非真實身分驗證。</p>
+      <p id="loginFeedback" class="login-feedback" aria-live="polite"></p>
+    </section>
+  </main>
+  <script type="module" src="../js/pages/login.js"></script>
+</body>
+</html>
