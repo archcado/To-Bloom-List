@@ -1,51 +1,57 @@
 # Database
 
-目前版本：`0.1.0-schema-draft`  
-目標資料庫：PostgreSQL  
-狀態：Draft，尚未部署、尚未被 Backend 使用
+目前版本：`0.2.1-plant-order-draft`
+目標：PostgreSQL
+狀態：設計草案；尚未部署、尚未被 Backend 使用
 
 ## 已設計資料表
 
-| Table | Purpose | Status |
+| Table | 用途 | 狀態 |
 | --- | --- | --- |
-| `users` | 使用者帳號基礎資料 | Draft |
-| `tasks` | 任務、狀態、排序與排程時間 | Draft |
-| `plant_species` | 植物物種、花語與圖片基礎路徑 | Draft |
-| `user_collections` | 使用者解鎖與盛開次數 | Draft |
-| `task_completion_events` | 完成紀錄與防重複事件 | Draft |
-| `calendar_connections` | Google Calendar 連線對照 | Draft |
-| `task_calendar_links` | 任務與 Google Event ID 對照 | Draft |
-| `automation_events` | n8n 等外部整合的可靠事件佇列 | Draft |
+| `users` | 使用者帳號 | Draft |
+| `tasks` | 任務、狀態、排序與 Calendar 排程 | Draft |
+| `plant_species` | 31 種植物、固定顯示順序、最終解鎖標記、花語與素材狀態 | Draft |
+| `user_collections` | 使用者植物收藏 | Draft |
+| `task_completion_events` | 任務完成事件與 idempotency | Draft |
+| `daily_goal_rewards` | 每位使用者每天最多一筆 4/4 獎勵 | New draft |
+| `seed_offers` | 固定候選組、隨機種子與最終選擇 | New draft |
+| `seed_offer_candidates` | 每封種子信最多三株候選 | New draft |
+| `calendar_connections` | Google Calendar 連線 | Draft |
+| `task_calendar_links` | Task ↔ Google Event ID | Draft |
+| `automation_events` | n8n reliable event outbox | Draft |
 
-## Seed 進度
+## 植物 Seed
 
-`seeds/001_current_plant_species.sql` 只包含目前 Frontend 確實存在的兩種植物：
+`seeds/001_current_plant_species.sql` 已建立 31 種植物資料。
 
-- 雛菊 `daisy`
-- 百合 `lily`
+- `display_order` 固定對應前端 No.01–31。
+- No.31 為睡蓮；`final_unlock_only = true` 明確標記最終植物，不只依賴顯示排序。
+- 雛菊與百合：`asset_status = ready`。
+- 其餘 29 種：`asset_status = planned`，只有圖鑑資料，尚無四階段 WebP。
+- Database 只保存素材路徑和狀態，不保存圖片 binary。
 
-其餘 29 種尚未確定物種、花語、解鎖順序與圖片，因此沒有補造 seed 資料。
+## 每日獎勵約束
+
+- `UNIQUE (user_id, reward_date)` 保證每位使用者每天最多一筆獎勵。
+- `UNIQUE (seed_offer_id, position)` 保證每封種子信最多三個不同位置。
+- 候選在取得獎勵時寫入 `seed_offer_candidates`，重新載入不重新抽選。
+- 一般候選查詢必須排除睡蓮；只有睡蓮是最後一種未收藏植物時，才建立單一候選 offer。
+- 正式實作選種時，必須鎖定 reward／offer row，驗證候選、寫入收藏並標記 claimed，一次 transaction 提交。
 
 ## 執行草案
-
-建立空白 PostgreSQL database 並設定 `DATABASE_URL` 後：
 
 ```bash
 psql "$DATABASE_URL" -f database/schema.sql
 psql "$DATABASE_URL" -f database/seeds/001_current_plant_species.sql
 ```
 
-目前 `schema.sql` 是開發設計快照，不是已部署 migration。第一次正式部署前，應凍結為不可修改的 `001_initial_schema.sql`。
+若已用舊版草案建立資料表，先執行 `database/migrations/002_plant_catalog_v041.sql`，再執行 seed。
 
-## 交易規則
+目前 `schema.sql` 仍是可調整的開發快照。第一次正式部署前，應凍結為 `001_initial_schema.sql`；部署後只新增 migration，不回頭修改已執行版本。
 
-未來完成任務與解鎖植物必須在同一個資料庫交易中：
+## 尚未完成
 
-1. 驗證任務屬於目前使用者。
-2. 確認完成事件的 `event_key` 尚未處理。
-3. 更新任務完成狀態。
-4. 寫入 `task_completion_events`。
-5. 新增或更新 `user_collections`。
-6. 建立 `automation_events`，交由 n8n 同步 Calendar 或發送通知。
-7. 一次提交；任一步失敗則整筆回滾。
-
+- 實際 PostgreSQL instance 與 migration runner。
+- Backend Repository 與 transaction integration test。
+- Row-level ownership／權限政策。
+- outbox worker、重試與失敗告警。

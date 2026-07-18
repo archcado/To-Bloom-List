@@ -1,129 +1,119 @@
 .task-garden-section {
-  display: grid;
-  gap: 14px;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(159, 191, 211, 0.86);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 72% 12%, rgba(255, 255, 255, 0.36), transparent 22rem),
+    linear-gradient(180deg, #8fc1e7 0, #cce6f4 72%, #e7edcf 72.3%, #f3e7c9 100%);
+  box-shadow: var(--shadow-paper);
+  padding: clamp(22px, 4vw, 36px);
 }
 
 .task-garden-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 12px;
+  gap: 18px;
 }
 
 .task-garden-header h3 {
   margin: 0 0 6px;
+  color: var(--color-sky-deep);
+  font-size: clamp(1.5rem, 3vw, 2rem);
 }
 
-.task-garden-header p {
+.task-garden-header p:not(.page-eyebrow) {
   margin: 0;
-  color: var(--color-text-muted);
-}
-
-.section-eyebrow {
-  margin: 0 0 6px;
-  color: var(--color-text-muted);
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
+  color: #405e71;
 }
 
 .garden-summary {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--color-bg-soft);
-  padding: 10px 12px;
-  text-align: center;
-  min-width: 100px;
+  min-width: 92px;
+  border-left: 1px solid rgba(255, 255, 255, 0.72);
+  padding-left: 18px;
+  text-align: right;
 }
 
 .garden-summary span {
   display: block;
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
+  color: #496779;
+  font-size: 0.76rem;
 }
 
 .garden-summary strong {
-  font-size: 1.2rem;
+  color: var(--color-sky-deep);
+  font-size: 1.65rem;
 }
 
 .garden-viewport {
+  margin-top: 22px;
   overflow-x: auto;
   overflow-y: hidden;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  background:
-    radial-gradient(circle at 22% 24%, rgba(255, 255, 255, 0.72), transparent 34%),
-    linear-gradient(to bottom, #fffdf8 0%, #f8f0df 100%);
-  padding: 18px 18px 10px;
+  scrollbar-color: rgba(35, 75, 103, 0.35) transparent;
+  scrollbar-width: thin;
 }
 
 .task-garden {
+  min-width: max-content;
+  min-height: 285px;
   display: flex;
-  gap: 8px;
-  min-height: 280px;
-  align-items: end;
+  align-items: flex-end;
+  gap: 5px;
 }
 
-.task-garden-empty {
-  margin: 0;
-  color: var(--color-text-muted);
-}
-
+.task-garden-empty,
 .task-summary-status {
-  margin: 0;
-  color: var(--color-text-muted);
+  margin: 13px 0 0;
+  color: #496779;
+  font-size: 0.84rem;
 }
 
 .task-plant {
-  width: 184px;
-  min-width: 184px;
+  width: 178px;
+  min-width: 178px;
   border: 0;
-  border-radius: var(--radius-md);
   background: transparent;
   display: grid;
   align-content: end;
-  gap: 8px;
-  padding: 8px;
-  transition: background-color 160ms ease, transform 160ms ease;
+  gap: 5px;
+  padding: 5px;
+  transition: transform 160ms ease;
 }
 
 .task-plant:hover,
 .task-plant:focus-visible {
-  background: rgba(255, 253, 248, 0.72);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
 .task-plant-visual {
-  border-radius: 14px;
-  background: transparent;
+  min-height: 196px;
   display: grid;
   place-items: end center;
-  min-height: 188px;
 }
 
 .task-plant-image {
-  width: 172px;
-  height: 188px;
+  width: 170px;
+  height: 196px;
   object-fit: contain;
   object-position: center bottom;
 }
 
 .task-plant-title {
+  width: 100%;
   margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.4;
+  overflow: hidden;
+  color: var(--color-sky-deep);
+  font-size: 0.82rem;
   text-align: center;
-  overflow-wrap: anywhere;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .task-plant-status {
-  display: inline-flex;
-  justify-content: center;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-pill);
-  background: var(--color-bg-soft);
-  padding: 4px 8px;
-  font-size: 0.78rem;
-  color: var(--color-text-muted);
+  color: #4e6c7e;
+  font-size: 0.7rem;
+  text-align: center;
 }
 
 .task-plant[data-stage="bud"] .task-plant-image,
@@ -133,8 +123,7 @@
 }
 
 .task-plant[data-stage="bloom"] .task-plant-status {
-  color: var(--color-primary-green-strong);
-  border-color: #b7caa9;
+  color: var(--color-daisy-deep);
 }
 
 .task-plant-image-error .task-plant-image {
@@ -142,31 +131,28 @@
 }
 
 @keyframes plant-stage-arrive {
-  from {
-    opacity: 0.35;
-    transform: translateY(6px) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  from { opacity: 0.35; transform: translateY(7px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 575.98px) {
   .task-garden-header {
     flex-direction: column;
   }
 
   .garden-summary {
-    width: fit-content;
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.72);
+    padding: 9px 0 0;
+    text-align: left;
   }
 
   .task-plant {
-    width: 162px;
-    min-width: 162px;
+    width: 154px;
+    min-width: 154px;
   }
 
   .task-plant-image {
-    width: 150px;
+    width: 148px;
   }
 }

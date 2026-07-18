@@ -1,35 +1,31 @@
 .app-content {
   min-height: 100vh;
   padding-top: var(--header-height);
+  display: flex;
+  flex-direction: column;
 }
 
 .app-main {
-  padding: 24px;
+  width: 100%;
+  flex: 1 0 auto;
+  padding: clamp(22px, 4vw, 52px) clamp(16px, 4vw, 48px) 64px;
 }
 
 #appFooter {
-  padding: 0 24px 24px;
+  width: 100%;
+  margin-top: auto;
 }
 
 .sidebar-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(47, 58, 51, 0.38);
+  background: rgba(24, 54, 74, 0.42);
+  backdrop-filter: blur(2px);
   z-index: 900;
 }
 
-@media (min-width: 992px) {
-  .app-content {
-    margin-left: var(--sidebar-width);
-  }
-}
-
-@media (max-width: 991.98px) {
+@media (max-width: 767.98px) {
   .app-main {
-    padding: 16px;
-  }
-
-  #appFooter {
-    padding: 0 16px 16px;
+    padding: 24px 14px 48px;
   }
 }

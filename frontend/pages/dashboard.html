@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#5c98d2" />
   <title>To Bloom List | 今日總覽</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png" />
   <link rel="stylesheet" href="../css/base/variables.css" />
   <link rel="stylesheet" href="../css/base/base.css" />
   <link rel="stylesheet" href="../css/layout.css" />
@@ -23,67 +25,76 @@
   <div class="app-content">
     <main class="app-main">
       <div class="dashboard-page">
-        <section class="dashboard-intro" aria-labelledby="dashboardPageHeading">
-          <h2 id="dashboardPageHeading">今日總覽</h2>
-          <p>一項任務對應一株植物，完成越多，花圃就越盛開。</p>
-        </section>
-
-        <section class="dashboard-summary-grid" aria-label="今日任務摘要">
-          <article class="summary-card">
-            <p>今日任務</p>
-            <strong id="taskTotalCount">0</strong>
-          </article>
-          <article class="summary-card">
-            <p>已完成</p>
-            <strong id="taskCompletedCount">0</strong>
-          </article>
-          <article class="summary-card">
-            <p>今日盛開</p>
-            <strong id="bloomSummaryCount">0</strong>
-          </article>
+        <section class="sky-hero" aria-labelledby="dashboardPageHeading">
+          <div class="sky-hero__copy">
+            <p class="page-eyebrow">TODAY · <span data-current-date>--</span></p>
+            <h2 id="dashboardPageHeading">把今天的小事，<br />種成明天的花。</h2>
+            <p>完成四項任務，就能從三顆種子中選擇一株新收藏。</p>
+          </div>
+          <div class="daily-progress" aria-label="今日任務進度">
+            <span>今日完成</span>
+            <strong><span id="dailyCompletedCount">0</span><small>/ 4</small></strong>
+            <div class="daily-progress__track" aria-hidden="true"><span id="dailyProgressBar"></span></div>
+          </div>
         </section>
 
         <div class="dashboard-grid">
-          <section class="task-panel card p-4" aria-labelledby="taskPanelTitle">
-            <h3 id="taskPanelTitle">今日任務</h3>
-            <p class="task-desc">建議維持四項任務，逐步完成並灌溉你的花園。</p>
+          <section class="task-panel journal-sheet" aria-labelledby="taskPanelTitle">
+            <header class="journal-sheet__header">
+              <div>
+                <p class="page-eyebrow">DAILY LIST</p>
+                <h3 id="taskPanelTitle">今天的四件事</h3>
+              </div>
+              <p id="taskLimitMessage" class="task-limit" aria-live="polite">今日完成 0 / 4</p>
+            </header>
 
             <div class="task-input-group">
               <label for="taskInput" class="visually-hidden">新增任務內容</label>
-              <input id="taskInput" type="text" class="task-input" placeholder="為今天新增任務..." />
-              <button id="addBtn" class="task-add-btn" type="button">新增</button>
+              <input id="taskInput" type="text" class="task-input" maxlength="200" placeholder="寫下一件今天想完成的事…" />
+              <button id="addBtn" class="task-add-btn" type="button">加入清單</button>
             </div>
-
-            <p id="taskLimitMessage" class="task-limit" aria-live="polite">建議任務數：0 / 4</p>
-            <ul id="taskList" class="task-list" aria-label="任務清單"></ul>
-          </section>
-
-          <section class="task-garden-section card p-4" aria-labelledby="taskGardenTitle">
-            <header class="task-garden-header">
-              <div>
-                <p class="section-eyebrow">TODAY'S GARDEN</p>
-                <h3 id="taskGardenTitle">今日花圃</h3>
-                <p>每完成一項任務，就讓花園多一朵盛開的花。</p>
-              </div>
-
-              <div class="garden-summary" aria-live="polite">
-                <span>今日盛開</span>
-                <strong id="bloomCount">0</strong>
-              </div>
-            </header>
-
-            <div class="garden-viewport" tabindex="0" aria-label="可橫向捲動的任務花圃">
-              <div id="taskGarden" class="task-garden" aria-live="polite"></div>
-            </div>
-            <p id="taskGardenEmpty" class="task-garden-empty">今天的花圃還是空的，新增第一項任務開始栽種。</p>
+            <ul id="taskList" class="task-list" aria-label="今日任務清單"></ul>
             <p id="taskSummaryStatus" class="task-summary-status" aria-live="polite"></p>
           </section>
+
+          <aside class="reward-postcard" aria-labelledby="rewardTitle">
+            <div class="reward-postcard__stamp" aria-hidden="true">4 / 4</div>
+            <p class="page-eyebrow">SEED POST</p>
+            <h3 id="rewardTitle">今天的種子信</h3>
+            <p id="dailyRewardMessage">再完成四項不同任務，就能收到一封選種邀請。</p>
+            <p class="reward-postcard__credit">尚未使用的選種機會：<strong id="pendingSeedCredits">0</strong></p>
+            <button id="openSeedOffer" class="reward-button" type="button" hidden>選擇今天的種子</button>
+          </aside>
         </div>
+
+        <section class="task-garden-section garden-sky" aria-labelledby="taskGardenTitle">
+          <header class="task-garden-header">
+            <div>
+              <p class="page-eyebrow">TODAY'S GARDEN</p>
+              <h3 id="taskGardenTitle">今日花圃</h3>
+              <p>植物安靜地記錄每一件完成的小事。</p>
+            </div>
+            <div class="garden-summary" aria-live="polite"><span>目前盛開</span><strong id="bloomCount">0</strong></div>
+          </header>
+          <div class="garden-viewport" tabindex="0" aria-label="可橫向捲動的任務花圃">
+            <div id="taskGarden" class="task-garden" aria-live="polite"></div>
+          </div>
+          <p id="taskGardenEmpty" class="task-garden-empty">今天的花圃還是空的，寫下第一件想完成的事吧。</p>
+        </section>
       </div>
       <p id="taskCompletionAnnouncer" class="visually-hidden" aria-live="polite"></p>
     </main>
     <div id="appFooter"></div>
   </div>
+
+  <dialog id="seedOfferDialog" class="seed-dialog" aria-labelledby="seedDialogTitle">
+    <form method="dialog" class="seed-dialog__top"><button class="seed-dialog__close" value="cancel" aria-label="關閉">×</button></form>
+    <p class="page-eyebrow">A GIFT FOR TODAY</p>
+    <h2 id="seedDialogTitle">三顆種子，你想帶走哪一顆？</h2>
+    <p>提示只會告訴你花色與花語。選擇後，植物才會揭曉。</p>
+    <div id="seedOfferChoices" class="seed-choice-grid"></div>
+    <p id="seedOfferFeedback" class="seed-dialog__feedback" aria-live="polite"></p>
+  </dialog>
 
   <script type="module" src="../js/app.js"></script>
   <script type="module" src="../js/pages/dashboard.js"></script>

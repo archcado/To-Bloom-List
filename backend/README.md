@@ -1,72 +1,61 @@
 # Backend
 
-目前版本：`0.1.0-foundation`  
-技術方向：Node.js、Express、REST API  
-狀態：Foundation，尚未接管 Frontend 任務資料
+目前版本：`0.2.0-integration-foundation`
+技術：Node.js、Express、REST
+狀態：整合骨架；尚未接管 Frontend localStorage 任務
 
 ## 已完成
 
-- Express 5 專案骨架。
-- JSON request body 與指定 Frontend origin 的 CORS 設定。
-- `GET /api/health` 健康檢查。
-- routes、controllers、services、repositories、middleware 分層目錄。
-- n8n integration 預留位置。
-- `.env.example`，未包含真實憑證。
-- Node 內建測試骨架。
+- Express 5 應用程式、JSON body、CORS 與 404 JSON 回應。
+- `GET /api/health`。
+- `POST /api/automation/task-events` 事件格式驗證。
+- `AUTOMATION_API_KEY` 保護 Backend 事件入口。
+- 由 Backend 以 `N8N_WEBHOOK_SECRET` 呼叫 n8n task webhook。
+- 8 秒 upstream timeout 與 400／401／502／503 錯誤邊界。
+- automation service 單元測試。
+
+## API 狀態
+
+| Method | Path | Status | 說明 |
+| --- | --- | --- | --- |
+| GET | `/api/health` | Implemented | Backend 健康檢查 |
+| POST | `/api/automation/task-events` | Implemented foundation | 驗證並轉送 task event；未設定 credentials 時回傳 503 |
+| CRUD | `/api/tasks` | Planned | 正式多人任務來源 |
+| POST | `/api/daily-rewards/:id/select` | Planned | transaction 內選種與解鎖 |
+| POST | `/api/internal/calendar-sync/result` | Planned | 接收 n8n Event ID 與同步結果 |
+
+## 環境變數
+
+複製 `.env.example` 為 `.env`，不要提交真實金鑰。
+
+```text
+PORT
+FRONTEND_ORIGIN
+DATABASE_URL
+AUTOMATION_API_KEY
+N8N_TASK_WEBHOOK_URL
+N8N_WEBHOOK_SECRET
+```
+
+## 啟動與測試
+
+```powershell
+npm.cmd ci --prefix backend
+npm.cmd --prefix backend test
+npm.cmd run dev:backend
+```
+
+## 安全邊界
+
+- Frontend 不得持有 n8n、Google 或 Database secrets。
+- Backend 未設定三個 automation 變數時，端點保持停用並回傳 503。
+- n8n 只編排 Google Calendar；任務與解鎖規則仍由 Backend／Database 決定。
+- 目前 API key 是開發期 service boundary，不取代未來的使用者 Auth 與內部服務簽章。
 
 ## 尚未完成
 
-- 使用者註冊、登入、JWT 或 Supabase Auth。
-- PostgreSQL 連線與 migration runner。
-- 任務 CRUD API。
-- 植物解鎖交易與防重複領取。
-- Google OAuth 與 Calendar connection。
-- n8n Webhook 驗證、重試與結果回報。
+- 使用者登入、任務所有權與 PostgreSQL Repository。
+- 任務 CRUD、outbox worker 與可靠重試。
+- 每日四任務 reward transaction。
+- Google OAuth、Calendar connection 與同步結果回寫。
 - LINE Messaging API 通知。
-
-## 預定模組
-
-```text
-src/
-├─ routes/          HTTP 路由
-├─ controllers/     request / response 轉換
-├─ services/        任務、解鎖與同步規則
-├─ repositories/    PostgreSQL 資料存取
-├─ middleware/      驗證、錯誤與權限
-├─ integrations/
-│  └─ n8n/          自動化事件發送
-├─ app.js
-└─ server.js
-```
-
-## 啟動
-
-```bash
-npm install
-cp .env.example .env
-npm run dev
-```
-
-測試：
-
-```bash
-npm test
-```
-
-目前健康檢查回應範例：
-
-```json
-{
-  "status": "ok",
-  "service": "to-bloom-list-backend",
-  "version": "0.1.0"
-}
-```
-
-## 邊界原則
-
-- Frontend 不直接持有資料庫、Google 或 n8n 的秘密金鑰。
-- Backend 負責任務所有權、解鎖規則與資料交易。
-- n8n 負責外部服務編排，不直接決定任務是否完成或解鎖哪株植物。
-- Google Calendar Event ID 必須回寫 `task_calendar_links`，避免重複事件。
-

@@ -3,36 +3,38 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#5c98d2" />
   <title>To Bloom List | 登入</title>
+  <link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png" />
   <link rel="stylesheet" href="../css/base/variables.css" />
   <link rel="stylesheet" href="../css/base/base.css" />
   <link rel="stylesheet" href="../css/pages/login.css" />
 </head>
-<body>
+<body class="login-body">
   <main class="login-page">
-    <section class="login-card" aria-labelledby="loginTitle">
-      <div class="login-daisy login-daisy--left" aria-hidden="true"></div>
-      <div class="login-daisy login-daisy--right" aria-hidden="true"></div>
-      <p class="login-brand">To Bloom List</p>
-      <h1 id="loginTitle" class="login-title">暖色花園入口</h1>
-      <p class="login-desc">使用暖米色與橄欖綠風格重整登入視覺，保留展示模式入口。</p>
+    <section class="login-sky" aria-label="品牌介紹">
+      <img src="../assets/icons/to-bloom-list-mark.svg" alt="" />
+      <p>TO BLOOM LIST</p>
+      <h1>讓清單在晴空下，<br />慢慢長成花。</h1>
+      <div class="login-flower" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><i></i></div>
+    </section>
+
+    <section class="login-paper" aria-labelledby="loginTitle">
+      <p class="login-kicker">WELCOME BACK</p>
+      <h2 id="loginTitle" class="login-title">回到今天的日記</h2>
+      <p class="login-desc">目前仍是單機展示版本，任務和植物收藏會保存在這個瀏覽器。</p>
 
       <form id="loginForm" novalidate>
-        <div class="login-field">
-          <label for="account">帳號</label>
-          <input id="account" name="account" type="text" autocomplete="username" required />
-        </div>
-        <div class="login-field">
-          <label for="password">密碼</label>
-          <input id="password" name="password" type="password" autocomplete="current-password" required />
-        </div>
+        <div class="login-field"><label for="account">帳號</label><input id="account" name="account" type="text" autocomplete="username" required /></div>
+        <div class="login-field"><label for="password">密碼</label><input id="password" name="password" type="password" autocomplete="current-password" required /></div>
         <div class="login-actions">
           <button type="submit" class="login-submit">登入</button>
           <a href="./dashboard.html" class="login-demo-link">進入展示模式</a>
         </div>
       </form>
 
-      <p class="login-note">提示：目前為展示模式，登入表單僅做前端欄位檢查，非真實身分驗證。</p>
+      <p class="login-note">正式登入、跨裝置同步與忘記密碼尚未啟用。</p>
       <p id="loginFeedback" class="login-feedback" aria-live="polite"></p>
     </section>
   </main>

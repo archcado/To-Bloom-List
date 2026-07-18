@@ -1,5 +1,6 @@
 import { loadTasksFromStorage } from "../task-storage.js";
 import { getPlantStageImage } from "../components/task-garden.js";
+import { collectionRepository } from "../repositories/collection-repository.js";
 
 const growingList = document.getElementById("growingPlantsList");
 const bloomList = document.getElementById("bloomPlantsList");
@@ -7,6 +8,7 @@ const totalPlantsCount = document.getElementById("totalPlantsCount");
 const totalBloomsCount = document.getElementById("totalBloomsCount");
 const growingPlantsCount = document.getElementById("growingPlantsCount");
 const bloomPlantsCount = document.getElementById("bloomPlantsCount");
+const collectionCount = document.getElementById("collectionCount");
 const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 function renderPlantsPage() {
@@ -15,6 +17,7 @@ function renderPlantsPage() {
   }
 
   const tasks = loadTasksFromStorage();
+  collectionRepository.ensureUnlocked(tasks.map((task) => task.plant?.type));
   const growing = tasks.filter((task) => !task.completed);
   const bloomed = tasks.filter((task) => task.completed);
 
@@ -29,6 +32,9 @@ function renderPlantsPage() {
   }
   if (bloomPlantsCount) {
     bloomPlantsCount.textContent = `${bloomed.length} 株`;
+  }
+  if (collectionCount) {
+    collectionCount.textContent = String(collectionRepository.getUnlockedIds().length);
   }
 
   renderPlantGroup(growingList, growing, false, "目前沒有成長中的任務植物。");

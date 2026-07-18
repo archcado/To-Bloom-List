@@ -1,46 +1,87 @@
 .plants-page {
-  width: min(100%, 1280px);
+  width: min(100%, var(--content-width));
   margin: 0 auto;
 }
 
-.plants-page__title {
-  margin: 0 0 8px;
+.garden-hero {
+  min-height: 245px;
+  border-radius: 28px 28px 12px 12px;
+  background:
+    radial-gradient(circle at 80% 12%, rgba(255, 255, 255, 0.36), transparent 22rem),
+    linear-gradient(135deg, #5b98d2, #86bce3);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  padding: clamp(28px, 5vw, 54px);
+  color: #fff;
 }
 
-.plants-page__desc {
-  margin: 0 0 18px;
-  color: var(--color-text-muted);
+.garden-hero .page-eyebrow {
+  color: rgba(255, 255, 255, 0.8);
 }
 
-.plants-overview {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 220px));
-  gap: 12px;
-  margin-bottom: 20px;
+.garden-hero h2 {
+  margin: 0 0 9px;
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  line-height: 1;
 }
 
-.plants-overview__card {
+.garden-hero p:last-child {
+  max-width: 650px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.75;
+}
+
+.garden-hero__link {
+  flex: 0 0 auto;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.82);
+  padding-bottom: 5px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.garden-ledger {
+  margin: 0;
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--color-card);
-  padding: 14px 16px;
-  box-shadow: var(--shadow-soft);
+  border-top: 0;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  background: var(--color-paper);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  box-shadow: var(--shadow-paper);
 }
 
-.plants-overview__card p {
-  margin: 0 0 4px;
+.garden-ledger > div {
+  padding: 18px 24px;
+}
+
+.garden-ledger > div + div {
+  border-left: 1px solid var(--color-border);
+}
+
+.garden-ledger dt {
   color: var(--color-text-muted);
-  font-size: 0.86rem;
+  font-size: 0.76rem;
 }
 
-.plants-overview__card strong {
-  color: var(--color-primary-green-strong);
-  font-size: 1.55rem;
+.garden-ledger dd {
+  margin: 5px 0 0;
+  color: var(--color-sky-deep);
+  font-size: 1.65rem;
+  font-weight: 750;
+}
+
+.garden-ledger small {
+  font-size: 0.8rem;
+  font-weight: 500;
 }
 
 .plants-beds {
   display: grid;
-  gap: 20px;
+  gap: 26px;
+  margin-top: 30px;
 }
 
 .plants-card {
@@ -48,63 +89,56 @@
   overflow: hidden;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  background: var(--color-card);
-  box-shadow: var(--shadow-soft);
-  padding: 18px;
+  background: var(--color-paper);
+  box-shadow: var(--shadow-paper);
+  padding: clamp(18px, 3vw, 30px);
 }
 
 .plants-card__header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   gap: 16px;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 .plants-card__header h3 {
   margin: 0;
-  font-size: 1.15rem;
+  color: var(--color-sky-deep);
+  font-size: 1.4rem;
 }
 
 .plants-card__eyebrow {
-  margin: 0 0 4px;
-  color: var(--color-text-muted);
-  font-size: 0.74rem;
-  letter-spacing: 0.09em;
+  margin: 0 0 5px;
+  color: var(--color-sky-strong);
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
 }
 
 .plants-card__count {
-  flex: 0 0 auto;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-pill);
-  background: var(--color-bg-soft);
-  color: var(--color-primary-green-strong);
-  padding: 6px 11px;
-  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
 }
 
 .plants-bed-viewport {
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  background:
-    radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.76), transparent 34%),
-    linear-gradient(to bottom, #fffdf8 0%, #f7eedc 100%);
-  padding: 16px 18px 10px;
+  background: linear-gradient(180deg, #b8daf0 0, #dcecf4 72%, #f2e7cc 72.5%);
+  padding: 18px 14px 8px;
   scrollbar-color: var(--color-border-strong) transparent;
   scrollbar-width: thin;
 }
 
 .plants-task-list {
-  display: flex;
-  align-items: end;
-  gap: 10px;
   min-width: max-content;
-  min-height: 270px;
+  min-height: 280px;
   margin: 0;
   padding: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
   list-style: none;
 }
 
@@ -115,26 +149,18 @@
 }
 
 .plants-task-item {
+  width: 184px;
+  min-width: 184px;
+  min-height: 260px;
+  padding: 5px 8px 10px;
   display: grid;
   align-content: end;
-  gap: 7px;
-  width: 190px;
-  min-width: 190px;
-  min-height: 250px;
-  border-radius: var(--radius-md);
-  padding: 6px 9px 10px;
-  transition: background-color 160ms ease, transform 160ms ease;
-}
-
-.plants-task-item:hover {
-  background: rgba(255, 253, 248, 0.72);
-  transform: translateY(-2px);
+  gap: 5px;
 }
 
 .plants-task-image {
-  display: block;
-  width: 180px;
-  height: 188px;
+  width: 174px;
+  height: 198px;
   margin: 0 auto;
   object-fit: contain;
   object-position: center bottom;
@@ -143,70 +169,55 @@
 .plants-task-text {
   display: grid;
   justify-items: center;
-  gap: 5px;
-  min-width: 0;
+  gap: 3px;
 }
 
 .plants-task-title {
   width: 100%;
   margin: 0;
   overflow: hidden;
-  color: var(--color-text);
-  font-size: 0.9rem;
-  line-height: 1.4;
+  color: var(--color-sky-deep);
+  font-size: 0.82rem;
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .plants-task-status {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-pill);
-  background: var(--color-bg-soft);
   color: var(--color-text-muted);
-  padding: 4px 9px;
-  font-size: 0.75rem;
+  font-size: 0.69rem;
 }
 
 .plants-empty {
   color: var(--color-text-muted);
-  text-align: center;
 }
 
-.plants-roadmap {
-  margin-top: 20px;
-  border-left: 3px solid var(--color-primary-green);
-  border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  background: rgba(255, 253, 248, 0.66);
-  padding: 14px 16px;
+.garden-note {
+  margin-top: 28px;
+  border-left: 3px solid var(--color-daisy);
+  padding: 4px 0 4px 18px;
 }
 
-.plants-roadmap h3 {
-  margin: 0 0 6px;
-  font-size: 1rem;
-}
-
-.plants-roadmap p {
+.garden-note p:last-child {
+  max-width: 760px;
   margin: 0;
   color: var(--color-text-muted);
+  font-size: 0.86rem;
+  line-height: 1.7;
 }
 
-@media (max-width: 575.98px) {
-  .plants-overview {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+@media (max-width: 720px) {
+  .garden-hero {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
-  .plants-card {
-    padding: 14px;
+  .garden-ledger {
+    grid-template-columns: 1fr;
   }
 
-  .plants-task-item {
-    width: 164px;
-    min-width: 164px;
-  }
-
-  .plants-task-image {
-    width: 154px;
-    height: 174px;
+  .garden-ledger > div + div {
+    border-top: 1px solid var(--color-border);
+    border-left: 0;
   }
 }

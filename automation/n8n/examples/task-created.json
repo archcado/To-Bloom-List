@@ -6,9 +6,12 @@
   "task": {
     "title": "練習英文閱讀",
     "description": "閱讀技術文章並整理五個單字",
+    "dueDate": "2026-07-20",
     "scheduledStart": "2026-07-20T19:30:00+08:00",
     "scheduledEnd": "2026-07-20T20:00:00+08:00",
+    "timeZone": "Asia/Taipei",
+    "calendarEventId": null,
+    "syncStatus": "pending",
     "completed": false
   }
 }
-

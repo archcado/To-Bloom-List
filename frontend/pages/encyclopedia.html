@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#5c98d2" />
+  <title>To Bloom List | 植物圖鑑</title>
+  <link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png" />
+  <link rel="stylesheet" href="../css/base/variables.css" />
+  <link rel="stylesheet" href="../css/base/base.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components/header.css" />
+  <link rel="stylesheet" href="../css/components/sidebar.css" />
+  <link rel="stylesheet" href="../css/components/footer.css" />
+  <link rel="stylesheet" href="../css/pages/encyclopedia.css" />
+</head>
+<body class="app-body" data-page="encyclopedia">
+  <div id="appHeader"></div>
+  <div id="appSidebar"></div>
+  <div id="sidebarOverlay" class="sidebar-overlay" hidden></div>
+
+  <div class="app-content">
+    <main class="app-main">
+      <section class="encyclopedia-page" aria-labelledby="encyclopediaTitle">
+        <header class="encyclopedia-hero">
+          <div>
+            <p class="page-eyebrow">BOTANICAL POSTCARDS</p>
+            <h2 id="encyclopediaTitle">植物圖鑑</h2>
+            <p>三十一張植物明信片，等著被每天完成的四件小事一一寄到花園。</p>
+          </div>
+          <div class="collection-progress" aria-label="圖鑑收藏進度"><strong id="collectionCount">0</strong><span>/ 31 collected</span></div>
+        </header>
+
+        <div class="encyclopedia-toolbar" role="group" aria-label="篩選植物圖鑑">
+          <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">全部</button>
+          <button class="filter-button" type="button" data-filter="unlocked" aria-pressed="false">已收藏</button>
+          <button class="filter-button" type="button" data-filter="locked" aria-pressed="false">待解鎖</button>
+        </div>
+
+        <div id="speciesGrid" class="species-grid" aria-live="polite"></div>
+      </section>
+    </main>
+    <div id="appFooter"></div>
+  </div>
+
+  <dialog id="speciesDialog" class="species-dialog" aria-labelledby="speciesDialogTitle">
+    <form method="dialog" class="species-dialog__close-row"><button value="cancel" aria-label="關閉植物資料">×</button></form>
+    <div id="speciesDialogContent"></div>
+  </dialog>
+
+  <script type="module" src="../js/app.js"></script>
+  <script type="module" src="../js/pages/encyclopedia.js"></script>
+</body>
+</html>

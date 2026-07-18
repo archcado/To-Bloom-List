@@ -16,15 +16,21 @@
     "task": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["title"],
+      "required": ["title", "completed", "timeZone", "syncStatus"],
       "properties": {
         "title": { "type": "string", "minLength": 1, "maxLength": 200 },
         "description": { "type": ["string", "null"] },
+        "dueDate": { "type": ["string", "null"] },
         "scheduledStart": { "type": ["string", "null"], "format": "date-time" },
         "scheduledEnd": { "type": ["string", "null"], "format": "date-time" },
+        "timeZone": { "type": "string", "minLength": 1 },
+        "calendarEventId": { "type": ["string", "null"] },
+        "syncStatus": {
+          "type": "string",
+          "enum": ["local", "pending", "synced", "failed", "conflict"]
+        },
         "completed": { "type": "boolean" }
       }
     }
   }
 }
-

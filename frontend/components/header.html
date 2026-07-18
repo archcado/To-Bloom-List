@@ -1,10 +1,10 @@
 <header class="app-header" role="banner">
-  <div class="app-header__left">
+  <div class="app-header__inner">
     <button
       id="sidebarToggle"
       class="app-header__menu-btn"
       type="button"
-      aria-label="開啟側邊導覽"
+      aria-label="開啟導覽選單"
       aria-controls="appSidebarNav"
       aria-expanded="false"
     >
@@ -12,15 +12,18 @@
       <span class="app-header__menu-line" aria-hidden="true"></span>
       <span class="app-header__menu-line" aria-hidden="true"></span>
     </button>
-    <div>
-      <p class="app-header__brand">To Bloom List</p>
-      <h1 class="app-header__title" data-page-title>頁面</h1>
-    </div>
-  </div>
 
-  <div class="app-header__right">
-    <p class="app-header__date">今天：<span data-current-date>--</span></p>
-    <a class="app-header__link" href="./login.html">個人區域</a>
-    <a class="app-header__link" href="./login.html">登入頁</a>
+    <a class="app-header__identity" href="./dashboard.html" aria-label="To Bloom List 今日總覽">
+      <img class="app-header__mark" src="../assets/icons/to-bloom-list-mark.svg" alt="" />
+      <span>
+        <span class="app-header__brand">To Bloom List</span>
+        <span class="app-header__title" data-page-title>頁面</span>
+      </span>
+    </a>
+
+    <div class="app-header__right">
+      <p class="app-header__date"><span data-current-date>--</span></p>
+      <a class="app-header__profile" href="./login.html" aria-label="前往展示登入頁">展示模式</a>
+    </div>
   </div>
 </header>

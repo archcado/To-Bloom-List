@@ -13,6 +13,12 @@ for (const fileName of readdirSync(path.join(frontendRoot, "pages"))) {
   }
 }
 
+for (const fileName of readdirSync(path.join(frontendRoot, "components"))) {
+  if (fileName.endsWith(".html")) {
+    checkHtmlFile(path.join(frontendRoot, "components", fileName), path.join(frontendRoot, "pages"));
+  }
+}
+
 for (const jsFile of walkFiles(path.join(frontendRoot, "js"), ".js")) {
   const source = readFileSync(jsFile, "utf8");
   for (const match of source.matchAll(/from\s+["']([^"']+)["']/g)) {
@@ -30,19 +36,19 @@ if (failures.length) {
 
 console.log("Frontend static references passed.");
 
-function checkHtmlFile(filePath) {
+function checkHtmlFile(filePath, referenceBase = path.dirname(filePath)) {
   const source = readFileSync(filePath, "utf8");
   for (const match of source.matchAll(/(?:href|src)=["']([^"']+)["']/g)) {
     const reference = match[1];
     if (!isExternalReference(reference)) {
-      assertLocalReference(filePath, reference);
+      assertLocalReference(filePath, reference, referenceBase);
     }
   }
 }
 
-function assertLocalReference(sourceFile, reference) {
+function assertLocalReference(sourceFile, reference, referenceBase = path.dirname(sourceFile)) {
   const cleanReference = reference.split(/[?#]/, 1)[0];
-  const resolvedPath = path.resolve(path.dirname(sourceFile), cleanReference);
+  const resolvedPath = path.resolve(referenceBase, cleanReference);
   if (!existsSync(resolvedPath)) {
     failures.push(`${path.relative(projectRoot, sourceFile)} -> missing ${reference}`);
   }
@@ -61,4 +67,3 @@ function walkFiles(directory, extension) {
     return entry.isFile() && entry.name.endsWith(extension) ? [entryPath] : [];
   });
 }
-
