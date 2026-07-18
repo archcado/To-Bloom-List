@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-Hant">
 
 <head>
   <meta charset="UTF-8" />
@@ -25,15 +25,16 @@
         <div class="card p-4 h-100 task-panel">
           <h2>今日任務</h2>
           <p class="task-desc">
-            最多新增四項任務，每完成一項，花朵就會成長。
+            建議維持四項任務，每完成一項，花朵就會成長。
           </p>
 
           <div class="task-input-group">
+            <label for="taskInput" class="visually-hidden">新增任務內容</label>
             <input id="taskInput" type="text" class="task-input" placeholder="為今天新增任務..." />
-            <button id="addBtn" class="task-add-btn">+ 新增</button>
+            <button id="addBtn" class="task-add-btn" type="button">+ 新增</button>
           </div>
 
-          <p id="taskLimitMessage" class="task-limit">Task limit: 0 / 4</p>
+          <p id="taskLimitMessage" class="task-limit" aria-live="polite">建議任務數：0 / 4</p>
 
           <ul id="taskList" class="task-list"></ul>
         </div>
@@ -45,19 +46,28 @@
           <h2>植物狀態區</h2>
           <p class="panel-desc">進度會透過一朵花的五個成長階段呈現。</p>
 
-          <div class="progress-card">
+          <div class="progress-card" aria-live="polite">
             <div class="progress-header">
-              <span id="progressText">進度: 0 / 0</span>
+              <span id="progressText">進度：0 / 0</span>
               <span id="progressPercent">0%</span>
             </div>
             <div class="progress mb-0">
-              <div id="progressBar" class="progress-bar" style="width: 0%"></div>
+              <div
+                id="progressBar"
+                class="progress-bar"
+                role="progressbar"
+                aria-label="任務進度"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-valuenow="0"
+                style="width: 0%"
+              ></div>
             </div>
           </div>
 
           <div class="stage-info">
-            <span class="stage-badge">Stage: <span id="plantStage">Seed</span></span>
-            <p id="stageMessage">今天，準備開始了。</p>
+            <span class="stage-badge">Stage: <span id="plantStage">種子</span></span>
+            <p id="stageMessage" aria-live="polite">今天，準備開始了。</p>
           </div>
 
           <div id="gardenBox">
@@ -133,7 +143,7 @@
 
   </div>
 
-  <script src="./js/script.js"></script>
+  <script type="module" src="./js/script.js"></script>
 </body>
 
 </html>
