@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To Bloom List | 待辦事項</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/base/variables.css" />
+  <link rel="stylesheet" href="../css/base/base.css" />
+  <link rel="stylesheet" href="../css/layout.css" />
+  <link rel="stylesheet" href="../css/components/header.css" />
+  <link rel="stylesheet" href="../css/components/sidebar.css" />
+  <link rel="stylesheet" href="../css/components/footer.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/pages/tasks.css" />
+</head>
+<body class="app-body" data-page="tasks">
+  <div id="appHeader"></div>
+  <div id="appSidebar"></div>
+  <div id="sidebarOverlay" class="sidebar-overlay" hidden></div>
+
+  <div class="app-content">
+    <main class="app-main">
+      <section class="tasks-page" aria-labelledby="tasksPageTitle">
+        <header class="tasks-page__header">
+          <h2 id="tasksPageTitle" class="tasks-page__title">待辦事項</h2>
+          <p class="tasks-page__desc">保留完整 CRUD 與排序功能，並顯示每項任務對應的小型植物狀態。</p>
+        </header>
+
+        <div class="tasks-page__grid">
+          <section class="task-panel card p-4" aria-labelledby="tasksPanelTitle">
+            <h3 id="tasksPanelTitle">任務清單</h3>
+            <p class="task-desc">按 Enter 或點擊新增，即可立即栽種一株任務植物。</p>
+
+            <div class="task-input-group">
+              <label for="taskInput" class="visually-hidden">新增任務內容</label>
+              <input id="taskInput" type="text" class="task-input" placeholder="新增今天要完成的任務..." />
+              <button id="addBtn" class="task-add-btn" type="button">新增</button>
+            </div>
+
+            <p id="taskLimitMessage" class="task-limit" aria-live="polite">建議任務數：0 / 4</p>
+            <ul id="taskList" class="task-list" aria-label="待辦任務清單"></ul>
+          </section>
+
+          <aside class="tasks-summary card p-4" aria-labelledby="tasksSummaryTitle">
+            <h3 id="tasksSummaryTitle">任務摘要</h3>
+            <div class="tasks-summary__stats">
+              <article>
+                <p>任務總數</p>
+                <strong id="taskTotalCount">0</strong>
+              </article>
+              <article>
+                <p>已完成</p>
+                <strong id="taskCompletedCount">0</strong>
+              </article>
+              <article>
+                <p>已盛開</p>
+                <strong id="bloomSummaryCount">0</strong>
+              </article>
+            </div>
+            <p id="taskSummaryStatus" class="task-summary-status" aria-live="polite"></p>
+            <p class="tasks-summary__note">任務列上的植物圖示只反映狀態，不會在每次重繪時重播動畫。</p>
+          </aside>
+        </div>
+      </section>
+      <p id="taskCompletionAnnouncer" class="visually-hidden" aria-live="polite"></p>
+    </main>
+    <div id="appFooter"></div>
+  </div>
+
+  <script type="module" src="../js/app.js"></script>
+  <script type="module" src="../js/pages/tasks.js"></script>
+</body>
+</html>
