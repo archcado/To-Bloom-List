@@ -4,7 +4,8 @@ import { initSidebar } from "./components/sidebar.js";
 const PAGE_TITLES = {
   dashboard: "今日總覽",
   tasks: "待辦事項",
-  plants: "我的植物",
+  garden: "我的花園",
+  encyclopedia: "植物圖鑑",
   calendar: "月曆",
 };
 

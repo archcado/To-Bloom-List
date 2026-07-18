@@ -1,0 +1,107 @@
+{
+  "name": "To Bloom List - Task to Google Calendar",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "to-bloom-list-task",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "d8bbd42a-8fcf-45ef-a352-dcb2bec15ac1",
+      "name": "Task Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [-720, 0],
+      "webhookId": "to-bloom-list-task"
+    },
+    {
+      "parameters": {
+        "jsCode": "const signature = $input.first().json.headers?.['x-to-bloom-signature'];\nif (!signature || signature !== $env.N8N_WEBHOOK_SECRET) { throw new Error('Invalid webhook signature'); }\nconst event = $input.first().json.body ?? $input.first().json;\nif (!event.eventId || !event.taskId || !event.eventType || !event.task?.title) { throw new Error('Invalid task event'); }\nconst action = event.eventType === 'task.created' ? 'create' : event.eventType === 'task.deleted' ? 'delete' : 'update';\nreturn [{ json: { ...event, action } }];"
+      },
+      "id": "80aa312e-ce50-45f3-b928-acde64e5128e",
+      "name": "Validate and Route",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-480, 0]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            { "conditions": { "options": { "caseSensitive": true, "typeValidation": "strict" }, "conditions": [{ "leftValue": "={{ $json.action }}", "rightValue": "create", "operator": { "type": "string", "operation": "equals" } }], "combinator": "and" }, "renameOutput": true, "outputKey": "create" },
+            { "conditions": { "options": { "caseSensitive": true, "typeValidation": "strict" }, "conditions": [{ "leftValue": "={{ $json.action }}", "rightValue": "update", "operator": { "type": "string", "operation": "equals" } }], "combinator": "and" }, "renameOutput": true, "outputKey": "update" },
+            { "conditions": { "options": { "caseSensitive": true, "typeValidation": "strict" }, "conditions": [{ "leftValue": "={{ $json.action }}", "rightValue": "delete", "operator": { "type": "string", "operation": "equals" } }], "combinator": "and" }, "renameOutput": true, "outputKey": "delete" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "82d402af-d114-4664-a498-7ef35799d72a",
+      "name": "Task Action",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [-240, 0]
+    },
+    {
+      "parameters": {
+        "calendar": { "__rl": true, "value": "={{ $env.GOOGLE_CALENDAR_ID }}", "mode": "id" },
+        "start": "={{ $json.task.scheduledStart }}",
+        "end": "={{ $json.task.scheduledEnd }}",
+        "additionalFields": { "summary": "={{ $json.task.title }}", "description": "={{ 'To Bloom List task: ' + $json.taskId }}" }
+      },
+      "id": "37a82445-79b8-4cce-ad6c-cde6650a4acf",
+      "name": "Create Calendar Event",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [40, -180]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "calendar": { "__rl": true, "value": "={{ $env.GOOGLE_CALENDAR_ID }}", "mode": "id" },
+        "eventId": "={{ $json.task.calendarEventId }}",
+        "updateFields": { "start": "={{ $json.task.scheduledStart }}", "end": "={{ $json.task.scheduledEnd }}", "summary": "={{ $json.task.title }}" }
+      },
+      "id": "13631c59-b89d-4d0b-a932-57005629e643",
+      "name": "Update Calendar Event",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [40, 0]
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "calendar": { "__rl": true, "value": "={{ $env.GOOGLE_CALENDAR_ID }}", "mode": "id" },
+        "eventId": "={{ $json.task.calendarEventId }}",
+        "options": {}
+      },
+      "id": "ce414054-9753-4d46-88e4-241d20532f13",
+      "name": "Delete Calendar Event",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [40, 180]
+    },
+    {
+      "parameters": { "respondWith": "json", "responseBody": "={{ { accepted: true, eventId: $('Validate and Route').item.json.eventId, googleEventId: $json.id ?? null } }}", "options": {} },
+      "id": "ca478cc1-1baf-4fd8-b1e7-686166db068d",
+      "name": "Webhook Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [330, 0]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Task Webhook": { "main": [[{ "node": "Validate and Route", "type": "main", "index": 0 }]] },
+    "Validate and Route": { "main": [[{ "node": "Task Action", "type": "main", "index": 0 }]] },
+    "Task Action": { "main": [[{ "node": "Create Calendar Event", "type": "main", "index": 0 }], [{ "node": "Update Calendar Event", "type": "main", "index": 0 }], [{ "node": "Delete Calendar Event", "type": "main", "index": 0 }]] },
+    "Create Calendar Event": { "main": [[{ "node": "Webhook Response", "type": "main", "index": 0 }]] },
+    "Update Calendar Event": { "main": [[{ "node": "Webhook Response", "type": "main", "index": 0 }]] },
+    "Delete Calendar Event": { "main": [[{ "node": "Webhook Response", "type": "main", "index": 0 }]] }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" },
+  "versionId": "6f708d78-11cb-4617-b409-b3ca55f66e51",
+  "meta": { "templateCredsSetupCompleted": false },
+  "tags": []
+}

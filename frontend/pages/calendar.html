@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#5c98d2" />
   <title>To Bloom List | 月曆</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png" />
   <link rel="stylesheet" href="../css/base/variables.css" />
   <link rel="stylesheet" href="../css/base/base.css" />
   <link rel="stylesheet" href="../css/layout.css" />
@@ -21,32 +23,35 @@
   <div class="app-content">
     <main class="app-main">
       <section class="calendar-page" aria-labelledby="calendarPageTitle">
-        <h2 id="calendarPageTitle" class="calendar-page__title">月曆</h2>
-        <p class="calendar-page__desc">使用任務的 createdAt / completedAt 統計本月進度，暫不顯示假事件。</p>
+        <header class="page-heading">
+          <p class="page-eyebrow">CALENDAR JOURNAL</p>
+          <h2 id="calendarPageTitle">月曆</h2>
+          <p>先用真實 localStorage 任務整理月份；未來再由 n8n 統一同步至 Google Calendar。</p>
+        </header>
 
-        <article class="calendar-shell" aria-label="本月任務統計骨架">
+        <article class="calendar-shell" aria-label="本月任務月曆">
           <header class="calendar-shell__header">
+            <button id="previousMonth" type="button" aria-label="上一個月">←</button>
             <h3 id="calendarMonthLabel">--</h3>
-            <p>僅顯示真實任務資料統計，不宣稱未實作功能。</p>
+            <button id="nextMonth" type="button" aria-label="下一個月">→</button>
           </header>
-
-          <div class="calendar-stat-grid">
-            <article class="calendar-stat-card">
-              <p>本月新增</p>
-              <strong id="calendarCreatedCount">0</strong>
-            </article>
-            <article class="calendar-stat-card">
-              <p>本月完成</p>
-              <strong id="calendarCompletedCount">0</strong>
-            </article>
-            <article class="calendar-stat-card">
-              <p>目前待完成</p>
-              <strong id="calendarPendingCount">0</strong>
-            </article>
-          </div>
-
-          <p class="calendar-empty">互動型月曆視圖尚未實作，目前先提供可驗證的真實資料摘要。</p>
+          <div class="calendar-weekdays" aria-hidden="true"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
+          <div id="calendarGrid" class="calendar-grid" aria-label="月份日期格"></div>
         </article>
+
+        <div class="calendar-bottom">
+          <dl class="calendar-stat-grid">
+            <div><dt>本月新增</dt><dd id="calendarCreatedCount">0</dd></div>
+            <div><dt>本月完成</dt><dd id="calendarCompletedCount">0</dd></div>
+            <div><dt>目前待完成</dt><dd id="calendarPendingCount">0</dd></div>
+          </dl>
+          <aside class="calendar-sync-note">
+            <p class="page-eyebrow">GOOGLE CALENDAR</p>
+            <h3>整合邊界已預留</h3>
+            <p>此版本不會假裝已連線。任務排程、Event ID 與同步狀態已納入資料契約，待 n8n credentials 設定後啟用。</p>
+            <span>目前狀態：尚未連線</span>
+          </aside>
+        </div>
       </section>
     </main>
     <div id="appFooter"></div>

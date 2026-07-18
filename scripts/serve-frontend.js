@@ -12,6 +12,8 @@ const mimeTypes = {
   ".html": "text/html; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8",
+  ".svg": "image/svg+xml",
+  ".png": "image/png",
   ".webp": "image/webp",
 };
 
@@ -43,4 +45,3 @@ const server = http.createServer((request, response) => {
 server.listen(port, () => {
   console.log(`To Bloom List frontend: http://localhost:${port}`);
 });
-

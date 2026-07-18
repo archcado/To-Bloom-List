@@ -1,11 +1,30 @@
-<aside class="app-sidebar" aria-label="主要導覽">
-  <div class="app-sidebar__brand">To Bloom List</div>
+<aside class="app-sidebar" aria-label="主要導覽" aria-hidden="true">
+  <header class="app-sidebar__header">
+    <a class="app-sidebar__identity" href="./dashboard.html">
+      <img src="../assets/icons/to-bloom-list-mark.svg" alt="" />
+      <span>To Bloom List</span>
+    </a>
+    <button id="sidebarClose" class="app-sidebar__close" type="button" aria-label="關閉選單">×</button>
+  </header>
+
   <nav id="appSidebarNav" class="app-sidebar__nav" aria-label="網站功能導覽">
-    <ul class="app-sidebar__list">
-      <li><a data-page-link="dashboard" href="./dashboard.html">今日總覽</a></li>
-      <li><a data-page-link="tasks" href="./tasks.html">待辦事項</a></li>
-      <li><a data-page-link="plants" href="./plants.html">我的植物</a></li>
-      <li><a data-page-link="calendar" href="./calendar.html">月曆</a></li>
-    </ul>
+    <section class="app-sidebar__group" aria-labelledby="navListLabel">
+      <p id="navListLabel" class="app-sidebar__label">清單</p>
+      <ul class="app-sidebar__list">
+        <li><a data-page-link="dashboard" href="./dashboard.html"><span aria-hidden="true">01</span>今日總覽</a></li>
+        <li><a data-page-link="tasks" href="./tasks.html"><span aria-hidden="true">02</span>待辦事項</a></li>
+        <li><a data-page-link="calendar" href="./calendar.html"><span aria-hidden="true">03</span>月曆</a></li>
+      </ul>
+    </section>
+
+    <section class="app-sidebar__group" aria-labelledby="navGardenLabel">
+      <p id="navGardenLabel" class="app-sidebar__label">花園</p>
+      <ul class="app-sidebar__list">
+        <li><a data-page-link="garden" href="./plants.html"><span aria-hidden="true">04</span>我的花園</a></li>
+        <li><a data-page-link="encyclopedia" href="./encyclopedia.html"><span aria-hidden="true">05</span>植物圖鑑</a></li>
+      </ul>
+    </section>
   </nav>
+
+  <p class="app-sidebar__note">完成今天的四項任務，從三顆種子中選擇下一株收藏。</p>
 </aside>

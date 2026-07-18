@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">To Bloom List</title>
+  <desc id="desc">清單最後一行長成白色雛菊</desc>
+  <rect x="5" y="7" width="50" height="50" rx="14" fill="#5c98d2"/>
+  <path d="M18 21h21M18 30h16" fill="none" stroke="#fffdf8" stroke-width="3.6" stroke-linecap="round"/>
+  <circle cx="13" cy="21" r="2" fill="#f0c238"/>
+  <circle cx="13" cy="30" r="2" fill="#f0c238"/>
+  <path d="M18 40h11c5.8 0 8.7-3.6 9.6-8.6" fill="none" stroke="#fffdf8" stroke-width="3.6" stroke-linecap="round"/>
+  <path d="M38.7 35.5c1.3 5.8.8 10.6-1.4 15" fill="none" stroke="#66934f" stroke-width="2.5" stroke-linecap="round"/>
+  <g transform="translate(42 27)">
+    <ellipse rx="3.6" ry="7" transform="rotate(0) translate(0 -6.3)" fill="#fffdf8"/>
+    <ellipse rx="3.6" ry="7" transform="rotate(72) translate(0 -6.3)" fill="#fffdf8"/>
+    <ellipse rx="3.6" ry="7" transform="rotate(144) translate(0 -6.3)" fill="#fffdf8"/>
+    <ellipse rx="3.6" ry="7" transform="rotate(216) translate(0 -6.3)" fill="#fffdf8"/>
+    <ellipse rx="3.6" ry="7" transform="rotate(288) translate(0 -6.3)" fill="#fffdf8"/>
+    <circle r="4.1" fill="#f0c238"/>
+  </g>
+</svg>

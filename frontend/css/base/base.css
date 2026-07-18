@@ -10,12 +10,30 @@ body {
   padding: 0;
 }
 
+html {
+  min-height: 100%;
+  background: var(--color-sky-mist);
+}
+
 body {
   min-height: 100vh;
-  background: var(--color-bg);
+  background:
+    radial-gradient(circle at 84% 5%, rgba(255, 255, 255, 0.72), transparent 26rem),
+    linear-gradient(180deg, #d8ebf7 0, var(--color-sky-mist) 28rem, var(--color-cream) 100%);
   color: var(--color-text);
-  font-family: "Noto Sans TC", "Segoe UI", sans-serif;
+  font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", "Segoe UI", sans-serif;
   overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+}
+
+p,
+h1,
+h2,
+h3 {
+  text-wrap: pretty;
 }
 
 a {
@@ -29,13 +47,61 @@ textarea {
   font: inherit;
 }
 
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
 :focus-visible {
   outline: var(--focus-ring);
   outline-offset: 2px;
 }
 
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
 body.sidebar-open {
   overflow: hidden;
+}
+
+::selection {
+  background: rgba(240, 194, 56, 0.38);
+  color: var(--color-sky-deep);
+}
+
+.page-eyebrow {
+  margin: 0 0 7px;
+  color: var(--color-sky-deep);
+  font-size: 0.7rem;
+  font-weight: 750;
+  letter-spacing: 0.15em;
+}
+
+.page-heading {
+  width: min(100%, 760px);
+  margin-bottom: 28px;
+}
+
+.page-heading h2 {
+  margin: 0 0 8px;
+  color: var(--color-sky-deep);
+  font-size: clamp(2rem, 5vw, 3.15rem);
+  line-height: 1.14;
+}
+
+.page-heading > p:last-child {
+  margin: 0;
+  color: var(--color-text-muted);
+  line-height: 1.75;
 }
 
 @media (prefers-reduced-motion: reduce) {

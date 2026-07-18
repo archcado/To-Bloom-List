@@ -1,0 +1,323 @@
+.encyclopedia-page {
+  width: min(100%, var(--content-width));
+  margin: 0 auto;
+}
+
+.encyclopedia-hero {
+  min-height: 245px;
+  border-radius: 28px 28px 12px 12px;
+  background:
+    radial-gradient(circle at 78% 18%, rgba(255, 255, 255, 0.35), transparent 22rem),
+    linear-gradient(135deg, #5c98d2, #82b9df);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px;
+  padding: clamp(28px, 5vw, 54px);
+  color: #fff;
+}
+
+.encyclopedia-hero .page-eyebrow {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.encyclopedia-hero h2 {
+  margin: 0 0 9px;
+  font-size: clamp(2.4rem, 6vw, 4.5rem);
+  line-height: 1;
+}
+
+.encyclopedia-hero p:last-child {
+  max-width: 650px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.75;
+}
+
+.collection-progress {
+  min-width: 135px;
+  border-left: 1px solid rgba(255, 255, 255, 0.58);
+  padding-left: 20px;
+}
+
+.collection-progress strong {
+  display: block;
+  font-size: 2.8rem;
+  line-height: 1;
+}
+
+.collection-progress span {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.74rem;
+}
+
+.encyclopedia-toolbar {
+  border: 1px solid var(--color-border);
+  border-top: 0;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  background: var(--color-paper);
+  display: flex;
+  gap: 5px;
+  padding: 15px clamp(16px, 4vw, 34px);
+  box-shadow: var(--shadow-paper);
+}
+
+.filter-button {
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  color: var(--color-text-muted);
+  padding: 8px 13px;
+  cursor: pointer;
+}
+
+.filter-button:hover,
+.filter-button.is-active {
+  border-color: var(--color-daisy);
+  color: var(--color-sky-deep);
+}
+
+.species-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 32px;
+}
+
+.species-postcard {
+  min-width: 0;
+  aspect-ratio: 3 / 4;
+  border: 1px solid var(--color-line-warm);
+  border-radius: var(--radius-md);
+  background: var(--color-paper);
+  box-shadow: 0 9px 24px rgba(35, 75, 103, 0.07);
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  overflow: hidden;
+  color: var(--color-text);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 170ms ease, box-shadow 170ms ease, border-color 170ms ease;
+}
+
+.species-postcard:hover {
+  border-color: var(--color-sky-strong);
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-4px);
+}
+
+.species-postcard__art {
+  position: relative;
+  overflow: hidden;
+  background: var(--species-bg, #d6e8f3);
+  display: grid;
+  place-items: center;
+}
+
+.species-postcard__art::before {
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.52);
+  content: "";
+}
+
+.species-postcard__number {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  color: rgba(35, 75, 103, 0.72);
+  font-size: 0.67rem;
+  letter-spacing: 0.12em;
+}
+
+.botanical-mark {
+  position: relative;
+  width: 105px;
+  height: 150px;
+}
+
+.botanical-mark__stem {
+  position: absolute;
+  left: 51px;
+  bottom: 7px;
+  width: 3px;
+  height: 96px;
+  border-radius: 3px;
+  background: var(--color-leaf);
+  transform: rotate(var(--stem-tilt, 0deg));
+  transform-origin: bottom;
+}
+
+.botanical-mark__flower {
+  position: absolute;
+  left: 28px;
+  top: 12px;
+  width: 55px;
+  height: 55px;
+  filter: drop-shadow(0 5px 5px rgba(35, 75, 103, 0.08));
+}
+
+.botanical-mark__petal {
+  position: absolute;
+  left: 20px;
+  top: 0;
+  width: 16px;
+  height: 32px;
+  border-radius: 55% 55% 48% 48%;
+  background: var(--petal-color, #fffdf8);
+  transform-origin: 8px 28px;
+}
+
+.botanical-mark__center {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  z-index: 2;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--center-color, #f0c238);
+}
+
+.species-postcard__body {
+  padding: 15px 17px 17px;
+}
+
+.species-postcard__body h3 {
+  margin: 0 0 3px;
+  color: var(--color-sky-deep);
+  font-size: 1.02rem;
+}
+
+.species-postcard__latin {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-family: Georgia, serif;
+  font-size: 0.7rem;
+  font-style: italic;
+}
+
+.species-postcard__meaning {
+  margin: 10px 0 0;
+  color: var(--color-text-muted);
+  font-size: 0.74rem;
+}
+
+.species-postcard.is-locked .species-postcard__art {
+  filter: grayscale(0.65);
+}
+
+.species-postcard.is-locked .botanical-mark {
+  opacity: 0.24;
+}
+
+.species-postcard.is-locked .species-postcard__body h3,
+.species-postcard.is-locked .species-postcard__latin {
+  color: #91a0a8;
+}
+
+.species-postcard__lock {
+  position: absolute;
+  right: 22px;
+  bottom: 18px;
+  color: var(--color-sky-deep);
+  font-size: 0.7rem;
+}
+
+.species-dialog {
+  width: min(680px, calc(100vw - 28px));
+  max-height: calc(100vh - 28px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  background: var(--color-paper);
+  color: var(--color-text);
+  box-shadow: 0 28px 80px rgba(27, 64, 90, 0.3);
+  padding: 22px;
+}
+
+.species-dialog::backdrop {
+  background: rgba(29, 61, 82, 0.55);
+  backdrop-filter: blur(4px);
+}
+
+.species-dialog__close-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.species-dialog__close-row button {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-sky-pale);
+  color: var(--color-sky-deep);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.species-detail {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  gap: 28px;
+  padding: 4px 12px 20px;
+}
+
+.species-detail__art {
+  min-height: 320px;
+  background: var(--species-bg, var(--color-sky-pale));
+  display: grid;
+  place-items: center;
+}
+
+.species-detail__art .botanical-mark {
+  transform: scale(1.35);
+}
+
+.species-detail h2 {
+  margin: 0 0 4px;
+  color: var(--color-sky-deep);
+}
+
+.species-detail__latin {
+  margin: 0 0 24px;
+  color: var(--color-text-muted);
+  font-family: Georgia, serif;
+  font-style: italic;
+}
+
+.species-detail dl {
+  margin: 0;
+}
+
+.species-detail dl > div {
+  border-top: 1px solid var(--color-border);
+  padding: 11px 0;
+}
+
+.species-detail dt {
+  color: var(--color-text-muted);
+  font-size: 0.72rem;
+}
+
+.species-detail dd {
+  margin: 3px 0 0;
+  line-height: 1.6;
+}
+
+@media (max-width: 1000px) {
+  .species-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 700px) {
+  .encyclopedia-hero { align-items: flex-start; flex-direction: column; }
+  .collection-progress { border-top: 1px solid rgba(255,255,255,.55); border-left: 0; padding: 12px 0 0; }
+  .species-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .species-detail { grid-template-columns: 1fr; }
+  .species-detail__art { min-height: 240px; }
+}
+
+@media (max-width: 420px) {
+  .species-grid { grid-template-columns: 1fr; }
+  .species-postcard { aspect-ratio: 4 / 5; }
+}
