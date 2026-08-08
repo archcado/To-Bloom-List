@@ -27,8 +27,8 @@ filterButtons.forEach((button) => {
 grid?.addEventListener("click", (event) => {
   const card = event.target instanceof Element ? event.target.closest("button[data-species-id]") : null;
   const species = PLANT_SPECIES.find((item) => item.id === card?.dataset.speciesId);
-  if (species) {
-    openDetails(species, collectionRepository.getUnlockedIds().includes(species.id));
+  if (species && collectionRepository.getUnlockedIds().includes(species.id)) {
+    openDetails(species);
   }
 });
 
@@ -52,11 +52,12 @@ function createCard(species, unlocked) {
   button.type = "button";
   button.className = `species-postcard${unlocked ? "" : " is-locked"}`;
   button.dataset.speciesId = species.id;
+  button.disabled = !unlocked;
   button.setAttribute("aria-label", unlocked ? `查看${species.name}資料` : `尚未解鎖的植物，第 ${species.displayOrder} 號`);
   button.innerHTML = `
     <span class="species-postcard__art" style="--species-bg:${species.background}">
       <span class="species-postcard__number">No. ${String(species.displayOrder).padStart(2, "0")}</span>
-      ${createBotanicalMark(species)}
+      ${unlocked ? createPlantImage(species, "species-postcard__image") : '<span class="species-postcard__silhouette" aria-hidden="true"></span>'}
       ${unlocked ? "" : '<span class="species-postcard__lock">LOCKED</span>'}
     </span>
     <span class="species-postcard__body">
@@ -67,32 +68,16 @@ function createCard(species, unlocked) {
   return button;
 }
 
-function openDetails(species, unlocked) {
+function openDetails(species) {
   if (!(dialog instanceof HTMLDialogElement) || !dialogContent) return;
-  dialogContent.innerHTML = unlocked
-    ? `<article class="species-detail">
-        <div class="species-detail__art" style="--species-bg:${species.background}">${createBotanicalMark(species)}</div>
+  dialogContent.innerHTML = `<article class="species-detail">
+        <div class="species-detail__art" style="--species-bg:${species.background}">${createPlantImage(species, "species-detail__image")}</div>
         <div><p class="page-eyebrow">COLLECTED POSTCARD</p><h2 id="speciesDialogTitle">${species.name}</h2><p class="species-detail__latin">${species.scientificName}</p>
           <dl><div><dt>花色</dt><dd>${species.colorHint}</dd></div><div><dt>花語</dt><dd>${species.meaning}</dd></div><div><dt>圖鑑筆記</dt><dd>${species.description}</dd></div></dl>
-        </div></article>`
-    : `<article class="species-detail"><div class="species-detail__art" style="--species-bg:${species.background};filter:grayscale(.7);opacity:.55">${createBotanicalMark(species)}</div>
-        <div><p class="page-eyebrow">LOCKED POSTCARD</p><h2 id="speciesDialogTitle">尚未寄達</h2><p class="species-detail__latin">A botanical surprise is waiting.</p>
-        <dl><div><dt>花色提示</dt><dd>${species.colorHint}</dd></div><div><dt>解鎖方式</dt><dd>${species.finalUnlockOnly ? "收藏其餘 30 種植物後，完成最後一次每日目標。" : "在一天內完成四個不同任務，從種子信的三個選項中選中它。"}</dd></div></dl></div></article>`;
+        </div></article>`;
   dialog.showModal();
 }
 
-function createBotanicalMark(species) {
-  const petalCount = Math.min(12, Math.max(5, species.petals));
-  const petals = Array.from({ length: petalCount }, (_, index) => {
-    const angle = (360 / petalCount) * index;
-    return `<i class="botanical-mark__petal" style="transform:rotate(${angle}deg)"></i>`;
-  }).join("");
-  const tilt = ((hash(species.id) % 13) - 6) * 0.8;
-  return `<span class="botanical-mark" style="--petal-color:${species.petal};--center-color:${species.center};--stem-tilt:${tilt}deg">
-    <span class="botanical-mark__stem"></span><span class="botanical-mark__flower">${petals}<i class="botanical-mark__center"></i></span>
-  </span>`;
-}
-
-function hash(value) {
-  return [...value].reduce((total, character) => total + character.charCodeAt(0), 0);
+function createPlantImage(species, className) {
+  return `<img class="${className}" src="${species.images.bloom}" alt="${species.name}盛開階段" loading="lazy" decoding="async">`;
 }

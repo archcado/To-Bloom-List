@@ -15,8 +15,10 @@ export function getStablePlantVariant(taskId) {
   return getTaskIdHash(taskId) % 3;
 }
 
-export function getStablePlantType(taskId) {
-  return getTaskIdHash(taskId) % 2 === 0 ? "daisy" : "lily";
+export function getStablePlantType(taskId, availablePlantIds = ["daisy", "lily"]) {
+  const supportedIds = [...new Set(availablePlantIds)].filter((id) => PLANT_SPECIES_BY_ID.has(id));
+  const candidates = supportedIds.length > 0 ? supportedIds : ["daisy"];
+  return candidates[getTaskIdHash(taskId) % candidates.length];
 }
 
 export function normalizeTask(task, index) {
@@ -84,8 +86,7 @@ export function saveTasksToStorage(tasks) {
 
 function normalizePlant(plant, taskId) {
   const hasPlantObject = plant && typeof plant === "object";
-  const supportedTypes = new Set(["daisy", "lily"]);
-  const type = hasPlantObject && supportedTypes.has(plant.type) ? plant.type : getStablePlantType(taskId);
+  const type = hasPlantObject && PLANT_SPECIES_BY_ID.has(plant.type) ? plant.type : getStablePlantType(taskId);
   const storedVariant = hasPlantObject ? Number(plant.variant) : NaN;
   return {
     type,
@@ -128,3 +129,4 @@ function getTaskIdHash(taskId) {
   }
   return Math.abs(hash);
 }
+import { PLANT_SPECIES_BY_ID } from "../data/plant-species.js";

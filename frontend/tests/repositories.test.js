@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { access } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
 
 class MemoryStorage {
   #values = new Map();
@@ -65,6 +67,20 @@ test("plant catalog keeps the agreed 01-31 order", () => {
   for (const removedId of ["marigold", "magnolia", "peony", "lotus"]) {
     assert.equal(PLANT_SPECIES.some((species) => species.id === removedId), false);
   }
+});
+
+test("every catalog species has four readable stage images", async () => {
+  const expectedStages = ["sprout", "bud", "opening", "bloom"];
+  for (const species of PLANT_SPECIES) {
+    assert.deepEqual(Object.keys(species.images), expectedStages);
+    await Promise.all(expectedStages.map((stage) => access(fileURLToPath(species.images[stage]))));
+  }
+});
+
+test("task normalization preserves every supported catalog species", () => {
+  const task = taskModule.normalizeTask({ id: "water-lily-task", text: "最後的任務", plant: { type: "water-lily" } }, 0);
+  assert.equal(task.plant.type, "water-lily");
+  assert.equal(taskModule.getStablePlantType("task-1", ["tulip"]), "tulip");
 });
 
 test("water lily is excluded while regular species remain locked", () => {

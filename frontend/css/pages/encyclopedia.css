@@ -106,6 +106,17 @@
   transform: translateY(-4px);
 }
 
+.species-postcard:disabled {
+  color: inherit;
+  cursor: default;
+}
+
+.species-postcard:disabled:hover {
+  border-color: var(--color-line-warm);
+  box-shadow: 0 9px 24px rgba(35, 75, 103, 0.07);
+  transform: none;
+}
+
 .species-postcard__art {
   position: relative;
   overflow: hidden;
@@ -128,6 +139,26 @@
   color: rgba(35, 75, 103, 0.72);
   font-size: 0.67rem;
   letter-spacing: 0.12em;
+}
+
+.species-postcard__image,
+.species-detail__image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.species-postcard__image {
+  padding: 28px 14px 6px;
+}
+
+.species-postcard__silhouette {
+  width: 72px;
+  height: 120px;
+  border-radius: 55% 45% 48% 52%;
+  background: #6f8998;
+  opacity: 0.22;
+  clip-path: polygon(46% 100%, 43% 52%, 18% 37%, 35% 31%, 45% 43%, 48% 7%, 55% 0, 62% 9%, 56% 45%, 72% 28%, 88% 34%, 59% 56%, 55% 100%);
 }
 
 .botanical-mark {
@@ -207,10 +238,6 @@
   filter: grayscale(0.65);
 }
 
-.species-postcard.is-locked .botanical-mark {
-  opacity: 0.24;
-}
-
 .species-postcard.is-locked .species-postcard__body h3,
 .species-postcard.is-locked .species-postcard__latin {
   color: #91a0a8;
@@ -268,6 +295,10 @@
   background: var(--species-bg, var(--color-sky-pale));
   display: grid;
   place-items: center;
+}
+
+.species-detail__image {
+  padding: 20px;
 }
 
 .species-detail__art .botanical-mark {

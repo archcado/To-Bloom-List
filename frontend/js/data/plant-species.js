@@ -48,5 +48,22 @@ function species(displayOrder, id, name, scientificName, colorHint, meaning, des
     center,
     petals,
     finalUnlockOnly,
+    images: createPlantImages(id),
   });
+}
+
+function createPlantImages(id) {
+  return Object.freeze({
+    sprout: plantImageUrl(id, 1, "sprout"),
+    bud: plantImageUrl(id, 2, "bud"),
+    opening: plantImageUrl(id, 3, "opening"),
+    bloom: plantImageUrl(id, 4, "bloom"),
+  });
+}
+
+function plantImageUrl(id, stageNumber, stageName) {
+  return new URL(
+    `../../assets/images/plant-stages/${id}-stage-${stageNumber}-${stageName}.webp`,
+    import.meta.url,
+  ).href;
 }

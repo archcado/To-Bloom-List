@@ -18,6 +18,7 @@ import {
   preloadTaskGardenImages,
   renderTaskGarden,
 } from "./components/task-garden.js";
+import { collectionRepository } from "./repositories/collection-repository.js";
 
 const input = document.getElementById("taskInput");
 const addButton = document.getElementById("addBtn");
@@ -46,7 +47,7 @@ if (taskList) {
 }
 bindRewardInteractions();
 renderApp();
-preloadTaskGardenImages();
+preloadTaskGardenImages(tasks.map((task) => task.plant?.type));
 window.addEventListener("beforeunload", clearAllTaskGardenTimers);
 
 function bindTaskInteractions() {
@@ -198,7 +199,10 @@ function addTask() {
     calendarEventId: null,
     syncStatus: "local",
     lastSyncedAt: null,
-    plant: { type: getStablePlantType(taskId), variant: getStablePlantVariant(taskId) },
+    plant: {
+      type: getStablePlantType(taskId, collectionRepository.getUnlockedIds()),
+      variant: getStablePlantVariant(taskId),
+    },
   });
   tasks = normalizeTaskList(tasks) || [];
   input.value = "";

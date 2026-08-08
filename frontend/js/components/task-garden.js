@@ -1,7 +1,8 @@
-export const PLANT_ASSETS = Object.freeze({
-  daisy: createPlantAssetSet("daisy"),
-  lily: createPlantAssetSet("lily"),
-});
+import { PLANT_SPECIES, PLANT_SPECIES_BY_ID } from "../data/plant-species.js";
+
+export const PLANT_ASSETS = Object.freeze(Object.fromEntries(
+  PLANT_SPECIES.map((species) => [species.id, Object.freeze({ stages: species.images })]),
+));
 
 const GROWTH_TIMINGS = Object.freeze({
   bud: 220,
@@ -14,12 +15,19 @@ let keyboardScrollBound = false;
 const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 export function getPlantStageImage(stage, plantType = "daisy") {
-  const assetSet = PLANT_ASSETS[plantType] || PLANT_ASSETS.daisy;
-  return assetSet.stages[stage] || assetSet.stages.sprout;
+  const assetSet = PLANT_ASSETS[plantType];
+  if (!assetSet) {
+    console.warn(`Unknown plant type "${plantType}"; using the generic starter image.`);
+  }
+  const resolvedAssetSet = assetSet || PLANT_ASSETS.daisy;
+  return resolvedAssetSet.stages[stage] || resolvedAssetSet.stages.sprout;
 }
 
-export function preloadTaskGardenImages() {
-  Object.values(PLANT_ASSETS).forEach((assetSet) => {
+export function preloadTaskGardenImages(plantTypes = ["daisy"]) {
+  const assetSets = [...new Set(plantTypes)]
+    .map((plantType) => PLANT_ASSETS[plantType])
+    .filter(Boolean);
+  assetSets.forEach((assetSet) => {
     Object.values(assetSet.stages).forEach((imageUrl) => {
       const image = new Image();
       image.src = imageUrl;
@@ -93,29 +101,6 @@ export function clearAllTaskGardenTimers() {
   Array.from(growthTimers.keys()).forEach((taskId) => clearGrowthTimers(taskId));
 }
 
-function createPlantAssetSet(plantType) {
-  return Object.freeze({
-    stages: Object.freeze({
-      sprout: new URL(
-        `../../assets/images/plant-stages/${plantType}-stage-1-sprout.webp`,
-        import.meta.url,
-      ).href,
-      bud: new URL(
-        `../../assets/images/plant-stages/${plantType}-stage-2-bud.webp`,
-        import.meta.url,
-      ).href,
-      opening: new URL(
-        `../../assets/images/plant-stages/${plantType}-stage-3-opening.webp`,
-        import.meta.url,
-      ).href,
-      bloom: new URL(
-        `../../assets/images/plant-stages/${plantType}-stage-4-bloom.webp`,
-        import.meta.url,
-      ).href,
-    }),
-  });
-}
-
 function createTaskPlant(task) {
   const article = document.createElement("article");
   article.className = "task-plant";
@@ -154,12 +139,13 @@ function createTaskPlant(task) {
 
 function updateTaskPlant(plant, task) {
   const plantType = PLANT_ASSETS[task.plant?.type] ? task.plant.type : "daisy";
+  const plantName = PLANT_SPECIES_BY_ID.get(plantType)?.name || "植物";
   plant.dataset.taskId = task.id;
   plant.dataset.plantType = plantType;
   plant.dataset.variant = String(task.plant?.variant ?? 0);
   plant.setAttribute(
     "aria-label",
-    `任務植物：${task.text}，${task.completed ? "已盛開" : "成長中"}`,
+    `任務植物：${task.text}，${plantName}，${task.completed ? "已盛開" : "成長中"}`,
   );
 
   const title = plant.querySelector(".task-plant-title");

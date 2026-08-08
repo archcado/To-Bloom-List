@@ -1,6 +1,7 @@
 import { loadTasksFromStorage } from "../task-storage.js";
 import { getPlantStageImage } from "../components/task-garden.js";
 import { collectionRepository } from "../repositories/collection-repository.js";
+import { PLANT_SPECIES_BY_ID } from "../data/plant-species.js";
 
 const growingList = document.getElementById("growingPlantsList");
 const bloomList = document.getElementById("bloomPlantsList");
@@ -73,7 +74,7 @@ function createPlantItem(task, completed) {
 
   const status = document.createElement("span");
   status.className = "plants-task-status";
-  const plantName = task.plant?.type === "lily" ? "百合" : "雛菊";
+  const plantName = PLANT_SPECIES_BY_ID.get(task.plant?.type)?.name || "植物";
   status.textContent = `${plantName} · ${completed ? "已盛開" : "成長中"}`;
 
   textWrap.appendChild(title);
